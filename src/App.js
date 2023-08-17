@@ -8,6 +8,7 @@ import FormSplitBill from "./FormSplitBill";
 function App() {
   const [showAddFriend, setShowAddFriend] = useState(false);
   const [friends, setFriends] = useState(initialFriends);
+  const [selectedFriend, setSelectedFriend] = useState(null);
 
   function handleShowAddFriend() {
     setShowAddFriend((show) => !show);
@@ -16,7 +17,12 @@ function App() {
   return (
     <div className="app">
       <div className="sidebar">
-        <FriendsList friends={friends} onSetFriends={setFriends} />
+        <FriendsList
+          friends={friends}
+          selectedFriend={selectedFriend}
+          onSetFriends={setFriends}
+          onSelectedFriend={setSelectedFriend}
+        />
 
         {showAddFriend && (
           <FormAddFriend
@@ -30,7 +36,13 @@ function App() {
         </Button>
       </div>
 
-      <FormSplitBill />
+      {selectedFriend && (
+        <FormSplitBill
+          selectedFriend={selectedFriend}
+          setFriends={setFriends}
+          setSelectedFriend={setSelectedFriend}
+        />
+      )}
     </div>
   );
 }
